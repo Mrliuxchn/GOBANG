@@ -1,6 +1,9 @@
 #include<iostream>
 #include<cstdlib>
 #include <termio.h>
+#include <cstdio>
+#include <unistd.h>
+#include <fcntl.h>
 #include<string>
 using namespace std;
 
@@ -50,6 +53,45 @@ int getch(void)
      }
 
      return ch;
+}
+
+int kbhit(void)
+{
+    struct termios oldt, newt;
+
+    int ch;
+
+    int oldf;
+
+    tcgetattr(STDIN_FILENO, &oldt);
+
+    newt = oldt;
+
+    newt.c_lflag &= ~(ICANON | ECHO);
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+
+    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+
+    ch = getchar();
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+
+    fcntl(STDIN_FILENO, F_SETFL, oldf);
+
+    if(ch != EOF)
+
+    {
+
+        ungetc(ch, stdin);
+
+        return 1;
+
+    }
+
+    return 0;
 }
 
 
@@ -421,10 +463,8 @@ int judge()
 	}
 }
 
-int hello()
+void tip()
 {
-	int start = 1; int pve = 2; int exit = 3; char option;
-
     cout << "╔══════════════════════════════════════════════════════════════════════════════╗" << endl;
     cout << "║温馨提示：                                                                    ║" << endl;
     cout << "║                                                                              ║" << endl;
@@ -432,22 +472,86 @@ int hello()
     cout << "║      Deepin默认终端会有一点点错位，还没想到兼容的解决方案。                  ║" << endl;
     cout << "║                                                                              ║" << endl;
     cout << "║    2、下棋时请先输入横坐标再输入纵坐标。并且棋盘只显示坐标的个位数字         ║" << endl;
-    cout << "║      从左到右，从上到下坐标依次增加，请输入时自行添加十位数字。🙈            ║" << endl;
+    cout << "║      从左到右，从上到下坐标依次增加，请输入时自行添加十位数字。              ║" << endl;
     cout << "║                                                                              ║" << endl;
     cout << "║    3、输入错误时请不要按删除键。。没用，你就多按几个数字，因为我写了         ║" << endl;
     cout << "║      坐标数据保护的，所以如果输错了就输入一个大数就可以啦。                  ║" << endl;
+    cout << "║                                                                              ║" << endl;                    cout << "║    4、游戏中请用‘W' 'D' 'A' 'D'代替上下左右控制菜单                          ║" << endl;
     cout << "║                                                                              ║" << endl;
-    cout << "║    4、中途退出请按ALT+，重新进入游戏就再次输入./GOBANG                       ║" << endl;
+    cout << "║    5、中途退出请按ALT+，重新进入游戏就再次输入./GOBANG                       ║" << endl;
     cout << "║                                                                              ║" << endl;
     cout << "║               为了看起来帅气，接下来的界面我就用English了哦✨                 ║" << endl;
     cout << "║                                                                              ║" << endl;
     cout << "║                  Please press any key to continue...                         ║" << endl;
     cout << "║                                                                              ║" << endl;
     cout << "╚══════════════════════════════════════════════════════════════════════════════╝" << endl;
-
 	char c = getch();
 	system("clear");
+	for (int i = 0; i <= 6;i++)
+	{
+		cout << endl;
+	}
+	cout << "╔══════════════════════════════════════════════════════════════════════════════╗" << endl;
+	cout << "║      如果大家喜欢的话，欢迎到GitHub关注我，上给这个小项目点个star 🌟         ║" << endl;
+	cout << "║               https://github.com/Mrliuxchn/Some-Terminal-Game                ║" << endl;
+	cout << "╚══════════════════════════════════════════════════════════════════════════════╝" << endl;
+	char b = getch();
+	system("clear");
+}
 
+
+void hello_A()
+{
+	cout << "╔══════════════════════════════════════════════════════════════════════════════╗" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                           THE MOST HANDSOME GOBANG                           ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                             ⚡ A、START PVP                                   ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                B、START PVE                                  ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                C、EXIT BRUTALLY                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                   COMPILER: LX and HJH       ║" << endl;
+	cout << "╚══════════════════════════════════════════════════════════════════════════════╝" << endl;
+}
+
+void hello_B()
+{
+	cout << "╔══════════════════════════════════════════════════════════════════════════════╗" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                           THE MOST HANDSOME GOBANG                           ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                A、START PVP                                  ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                             ⚡ B、START PVE                                   ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                C、EXIT BRUTALLY                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                                              ║" << endl;
+	cout << "║                                                   COMPILER: LX and HJH       ║" << endl;
+	cout << "╚══════════════════════════════════════════════════════════════════════════════╝" << endl;
+}
+
+void hello_C()
+{
 	cout << "╔══════════════════════════════════════════════════════════════════════════════╗" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
@@ -463,32 +567,12 @@ int hello()
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
-	cout << "║                                C、EXIT BRUTALLY                              ║" << endl;
+	cout << "║                             ⚡ C、EXIT BRUTALLY                               ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                   COMPILER: LX and HJH       ║" << endl;
 	cout << "╚══════════════════════════════════════════════════════════════════════════════╝" << endl;
-	cout << endl;
-	cout << endl;
-	cout << "Please cin your option:";
-	cin >> option;
-	switch (option)
-	{
-	case 'A':return start;
-	case 'B':return pve;
-	case 'C':return exit;
-	default:
-	{
-		cout << "Input error, please enter your options again!" << endl;
-		//system("pause");
-		char c = getch();
-		//system("cls");
-		system("clear");
-		hello();
-	}
-	break;
-	}
 }
 
 
@@ -504,8 +588,8 @@ void win(int n)
 	cout << "║                                                                              ║" << endl;
 	switch (n)
 	{
-	case 0: {cout << "║                           OH,PLAYER BLACK YOU ARE WIN!                       ║" << endl; break; }
-	case 1: {cout << "║                           OH,PLAYER WHITE YOU ARE WIN!                       ║" << endl; break; }
+	case 0: {cout << "║                          🔥  OH,PLAYER BLACK YOU ARE WIN!     😁               ║" << endl; break; }
+	case 1: {cout << "║                          🔥  OH,PLAYER WHITE YOU ARE WIN!     😁               ║" << endl; break; }
 	default:
 		break;
 	}
@@ -517,38 +601,113 @@ void win(int n)
 
 int main()
 {
-	//system("color 70");
-	//linux下不可用
-
-	system("clear");
-	switch (hello())
+    system("clear");
+    tip();
+    hello_A();
+	COORDINATE choice = 1;//确立菜单选项位置;
+	char choice_char;//存放用户键盘输入消息;
+	while (1)//重绘循环;
 	{
-	case 1:
-	{
-		//system("cls");
-		system("clear");
-		draw_checkerboard();
-		while (judge())
+		switch (choice)//防止choice数据溢出范围;
 		{
-			chess();
+		case 4: {choice = 1; break; }
+		case 0: {choice = 3; break; }
+		default:
+			break;
 		}
-		win(win_color);
-		break;
+		switch (choice)//根据菜单选项位置重绘菜单;
+		{
+		case 1: { system("clear");hello_A(); break; }
+		case 2: { system("clear");hello_B(); break; }
+		case 3: { system("clear");hello_C(); break; }
+		default:
+			break;
+		}
+		if (kbhit)//当按下键盘按键;
+		{
+			choice_char = getch();//无需确认的收集键盘消息;
+			switch (choice_char)
+			{
+			case 'd':
+			{
+				switch (choice)
+				{
+				case 1: {
+                    system("clear");
+		            draw_checkerboard();
+		            while (judge())
+		            {
+			            chess();
+		            }
+		            win(win_color);
+                    char c = getch();
+	                return 0;
+                        }
 
+
+
+				case 2: {
+		            system("clear");
+		            cout << "Sorry,this model haven't open now,You can choose again" << endl;
+		            cout << "Please press any key to continue" << endl;
+                    char c = getch();
+		            system("clear");
+		            hello_A();
+                    break;
+                        }
+
+
+
+				case 3: {system("clear"); char c = getch();return 0;}
+				default:
+					break;
+				}
+				break;
+			}
+			case 'a':
+			{
+
+
+				switch (choice)
+				{
+				case 1: {
+                    system("clear");
+		            draw_checkerboard();
+		            while (judge())
+		            {
+			            chess();
+		            }
+		            win(win_color);
+                    char c = getch();
+	                return 0;
+                        }
+
+
+
+				case 2: {
+		            system("clear");
+		            cout << "Sorry,this model haven't open now,You can choose again" << endl;
+		            cout << "Please press any key to continue" << endl;
+		            char c = getch();
+		            system("clear");
+		            hello_A();
+                    break;
+                        }
+
+
+
+				case 3: {system("clear"); char c = getch();return 0;}
+				default:
+					break;
+				}
+				break;
+			}
+			case 'w': { choice--; break; }
+			case 's': {choice++; break; }
+			default:
+				break;
+			}
+		}
 	}
-	case 2: {
-		//system("cls");
-		system("clear");
-		cout << "Sorry,this model haven't open now,You can choose again" << endl;
-		cout << "Please press any key to continue" << endl;
-		//system("pause");
-		char c = getch();
-		//system("cls");
-		system("clear");
-		hello(); }
-	default: {system("clear");break; }
-	}
-	//system("pause");
-	char c = getch();
-	return 0;
+    return 0;
 }
