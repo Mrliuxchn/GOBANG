@@ -234,11 +234,11 @@ void draw_checkerboard_x()//重新绘制棋盘
 				{
 					if (p % 2 == 0)
 					{
-						cout << "● ";
+						cout << "X ";
 					}
 					else
 					{
-						cout << "○ ";
+						cout << "O ";
 					}
 					count = 1;
 					break;
@@ -340,13 +340,13 @@ void chess()//绘制棋子
 		}
 	}
 
-	/*if (y_coordinate > lenient || x_coordinate > length)
+	if (y_coordinate > lenient || x_coordinate > length)
 	{
 		cout << "You entered the illegal data, please enter again" << endl;
 		cout << endl;
 		chess();
 		return;
-	}*/
+	}
 	for (int i = 0; i <= Mtime; i++)
 	{
 		if (x_coordinate == chessmess[i].x&&y_coordinate == chessmess[i].y)
@@ -476,11 +476,11 @@ void tip()
     cout << "║                                                                              ║" << endl;
     cout << "║    3、输入错误时请不要按删除键。。没用，你就多按几个数字，因为我写了         ║" << endl;
     cout << "║      坐标数据保护的，所以如果输错了就输入一个大数就可以啦。                  ║" << endl;
-    cout << "║                                                                              ║" << endl;                    cout << "║    4、游戏中请用‘W' 'D' 'A' 'D'代替上下左右控制菜单                          ║" << endl;
+    cout << "║                                                                              ║" << endl;                 cout << "║    4、游戏中请用‘W' 'D' 'A' 'D'代替上下左右控制菜单                          ║" << endl;
     cout << "║                                                                              ║" << endl;
     cout << "║    5、中途退出请按ALT+，重新进入游戏就再次输入./GOBANG                       ║" << endl;
     cout << "║                                                                              ║" << endl;
-    cout << "║               为了看起来帅气，接下来的界面我就用English了哦✨                 ║" << endl;
+    cout << "║               为了看起来帅气，接下来的界面我就用English了哦✨                ║" << endl;
     cout << "║                                                                              ║" << endl;
     cout << "║                  Please press any key to continue...                         ║" << endl;
     cout << "║                                                                              ║" << endl;
@@ -509,7 +509,7 @@ void hello_A()
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
-	cout << "║                             ⚡ A、START PVP                                   ║" << endl;
+	cout << "║                             ⚡ A、START PVP                                  ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
@@ -538,7 +538,7 @@ void hello_B()
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
-	cout << "║                             ⚡ B、START PVE                                   ║" << endl;
+	cout << "║                             ⚡ B、START PVE                                  ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
@@ -567,7 +567,7 @@ void hello_C()
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
-	cout << "║                             ⚡ C、EXIT BRUTALLY                               ║" << endl;
+	cout << "║                             ⚡ C、EXIT BRUTALLY                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
 	cout << "║                                                                              ║" << endl;
@@ -588,8 +588,8 @@ void win(int n)
 	cout << "║                                                                              ║" << endl;
 	switch (n)
 	{
-	case 0: {cout << "║                          🔥  OH,PLAYER BLACK YOU ARE WIN!     😁               ║" << endl; break; }
-	case 1: {cout << "║                          🔥  OH,PLAYER WHITE YOU ARE WIN!     😁               ║" << endl; break; }
+	case 0: {cout << "║                         🔥  OH,PLAYER X YOU ARE WIN!     😁                  ║" << endl; break; }
+	case 1: {cout << "║                         🔥  OH,PLAYER O YOU ARE WIN!     😁                  ║" << endl; break; }
 	default:
 		break;
 	}
