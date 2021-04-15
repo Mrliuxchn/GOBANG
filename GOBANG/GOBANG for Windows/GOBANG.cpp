@@ -395,6 +395,7 @@ int judge()
 	{
 		return 4;
 	}
+	return 0;
 }
 
 void tip()
